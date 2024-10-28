@@ -1,0 +1,114 @@
+import React, { useState, useEffect } from "react";
+import Card from "./Card";
+import { DragControls } from "framer-motion";
+import { GripHorizontal } from "lucide-react";
+import { Reorder } from "framer-motion";
+
+interface CardSectionProps {
+  time: string;
+  card: {
+    id: number;
+    name: string;
+    task: string;
+    location: string;
+    time: string;
+    attendedTask: boolean | null;
+  };
+  index: number;
+  totalCount: number;
+  onDelete: () => void;
+  onEdit: (updatedData: {
+    name: string;
+    task: string;
+    location: string;
+    time: string;
+  }) => void;
+  updateAttendedTask: (attendedTask: boolean | null) => void;
+  dragControls: DragControls;
+}
+
+const CardSection: React.FC<CardSectionProps> = ({
+  card,
+  index,
+  totalCount,
+  onDelete,
+  onEdit,
+  updateAttendedTask,
+  dragControls,
+  time,
+}) => {
+  const {
+    id,
+    name,
+    task,
+    location,
+    // time,
+    attendedTask: initialAttendedTask,
+  } = card;
+  const [attendedTask, setAttendedTask] = useState<boolean | null>(
+    initialAttendedTask
+  );
+
+  useEffect(() => {
+    setAttendedTask(initialAttendedTask);
+  }, [initialAttendedTask]);
+
+  const handleTickClick = () => {
+    setAttendedTask(true);
+    updateAttendedTask(true);
+  };
+
+  const handleXClick = () => {
+    setAttendedTask(false);
+    updateAttendedTask(false);
+  };
+
+  return (
+    <div className="border w-full h-28 flex justify-around items-center">
+      <div className="flex items-center gap-2">
+        <div
+          className={`w-3 h-3 rounded-full border-2 ${
+            attendedTask === true
+              ? "bg-green-500"
+              : attendedTask === false
+              ? "bg-red-500"
+              : "bg-slate-500"
+          }`}
+        />
+        <p className="text-sm">{time}</p>
+      </div>
+
+      <Reorder.Item
+        key={id}
+        value={card}
+        // dragListener={false}
+        // dragControls={dragControls}
+      >
+        <div className="relative">
+          <Card
+            name={name}
+            task={task}
+            location={location}
+            time={time}
+            index={index}
+            totalCount={totalCount}
+            onDelete={onDelete}
+            onEdit={onEdit}
+            settingTaskT={handleTickClick}
+            settingTaskX={handleXClick}
+            attendedTask={attendedTask}
+          />
+          <button
+            className="absolute bottom-0 right-1 cursor-pointer"
+            onPointerDown={(e) => dragControls.start(e)}
+            aria-label="Drag handle"
+          >
+            <GripHorizontal />
+          </button>
+        </div>
+      </Reorder.Item>
+    </div>
+  );
+};
+
+export default CardSection;

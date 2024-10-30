@@ -62,7 +62,7 @@ const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div className="border w-72 h-24 rounded-2xl flex justify-around items-center">
+    <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]">
       <div className="w-44 m-2">
         <p className="text-xs">
           case {index}/{totalCount}
@@ -146,18 +146,18 @@ const Card: React.FC<CardProps> = ({
         </div>
         <div className="pt-3">
           <button
-            className="border p-1 rounded-full bg-slate-200"
+            className="border p-1 rounded-full bg-[#28a745] text-white"
             onClick={settingTaskT}
           >
             <Check size={15} />
           </button>
           <button
-            className="border p-1 rounded-full bg-slate-200 ml-1"
+            className="border p-1 rounded-full bg-[#dc3545] text-white ml-1"
             onClick={settingTaskX}
           >
             <X size={15} />
           </button>
-          <button className="border p-1 rounded-full bg-slate-200 ml-1">
+          <button className="border p-1 rounded-full bg-[#009688] text-white ml-1">
             <CarTaxiFront size={15} />
           </button>
         </div>

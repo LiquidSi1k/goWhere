@@ -192,7 +192,7 @@ function App() {
 
               <button
                 type="submit"
-                className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md text-sm"
+                className="mt-4 w-full bg-[#009688] text-white py-2 px-4 rounded-md text-sm"
               >
                 {editIndex === null ? "Submit" : "Save Changes"}
               </button>

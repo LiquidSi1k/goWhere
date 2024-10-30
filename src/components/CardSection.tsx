@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { DragControls } from "framer-motion";
 import { GripHorizontal } from "lucide-react";
-import { Reorder } from "framer-motion";
+import { Reorder, useMotionValue } from "framer-motion";
+import { useRaisedShadow } from "../hooks/useRaisedShadow";
 
 interface CardSectionProps {
   time: string;
@@ -49,6 +50,9 @@ const CardSection: React.FC<CardSectionProps> = ({
     initialAttendedTask
   );
 
+  const y = useMotionValue(0);
+  const boxShadow = useRaisedShadow(y);
+
   useEffect(() => {
     setAttendedTask(initialAttendedTask);
   }, [initialAttendedTask]);
@@ -64,7 +68,7 @@ const CardSection: React.FC<CardSectionProps> = ({
   };
 
   return (
-    <div className="border w-full h-28 flex justify-around items-center">
+    <div className=" w-full h-28 flex justify-around items-center">
       <div className="flex items-center gap-2">
         <div
           className={`w-3 h-3 rounded-full border-2 ${
@@ -83,8 +87,10 @@ const CardSection: React.FC<CardSectionProps> = ({
         value={card}
         // dragListener={false}
         // dragControls={dragControls}
+        style={{ boxShadow, y }}
+        className="rounded-2xl"
       >
-        <div className="relative">
+        <div className="relative rounded-2xl">
           <Card
             name={name}
             task={task}

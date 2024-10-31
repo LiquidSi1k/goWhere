@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +30,7 @@ interface CardProps {
   settingTaskT: () => void;
   settingTaskX: () => void;
   attendedTask: boolean | null;
+  postalCodes: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -43,12 +44,14 @@ const Card: React.FC<CardProps> = ({
   onEdit,
   settingTaskT,
   settingTaskX,
+  postalCodes,
 }) => {
   const [editName, setEditName] = useState(name);
   const [editTask, setEditTask] = useState(task);
   const [editLocation, setEditLocation] = useState(location);
   const [open, setOpen] = useState(false);
   const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
+  // const postalCode = Number(postalCodes);
 
   const handleEditSave = (e) => {
     e.preventDefault();
@@ -61,8 +64,23 @@ const Card: React.FC<CardProps> = ({
     });
   };
 
+  const handleGrabLink = async () => {
+    try {
+      await navigator.clipboard.writeText(postalCodes);
+      alert("Destination copied! Opening Grab...");
+
+      window.location.href = "grab://";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(postalCodes);
+  }, [postalCodes]);
+
   return (
-    <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]">
+    <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white neumorphism">
       <div className="w-44 m-2">
         <p className="text-xs">
           case {index}/{totalCount}
@@ -131,7 +149,7 @@ const Card: React.FC<CardProps> = ({
 
                       <button
                         type="submit"
-                        className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md text-sm"
+                        className="mt-4 w-full bg-[#009688] text-white py-2 px-4 rounded-md text-sm"
                       >
                         Save Changes
                       </button>
@@ -146,18 +164,21 @@ const Card: React.FC<CardProps> = ({
         </div>
         <div className="pt-3">
           <button
-            className="border p-1 rounded-full bg-[#28a745] text-white"
+            className="border p-1 rounded-full bg-[#009688] text-white"
             onClick={settingTaskT}
           >
             <Check size={15} />
           </button>
           <button
-            className="border p-1 rounded-full bg-[#dc3545] text-white ml-1"
+            className="border p-1 rounded-full bg-[#ff6b6b] text-white ml-1"
             onClick={settingTaskX}
           >
             <X size={15} />
           </button>
-          <button className="border p-1 rounded-full bg-[#009688] text-white ml-1">
+          <button
+            className="border p-1 rounded-full bg-[#28a745] text-white ml-1"
+            onClick={handleGrabLink}
+          >
             <CarTaxiFront size={15} />
           </button>
         </div>

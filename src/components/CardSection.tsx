@@ -13,6 +13,7 @@ interface CardSectionProps {
     task: string;
     location: string;
     time: string;
+    postalCodes: string;
     attendedTask: boolean | null;
   };
   index: number;
@@ -37,17 +38,11 @@ const CardSection: React.FC<CardSectionProps> = ({
   updateAttendedTask,
   dragControls,
   time,
+  postalCodes,
 }) => {
-  const {
-    id,
-    name,
-    task,
-    location,
-    // time,
-    attendedTask: initialAttendedTask,
-  } = card;
+  const { id, name, task, location, attendedTask: initialAttendedTask } = card;
   const [attendedTask, setAttendedTask] = useState<boolean | null>(
-    initialAttendedTask
+    initialAttendedTask,
   );
 
   const y = useMotionValue(0);
@@ -75,9 +70,9 @@ const CardSection: React.FC<CardSectionProps> = ({
             attendedTask === true
               ? "bg-green-500"
               : attendedTask === false
-              ? "bg-red-500"
-              : "bg-slate-500"
-          }`}
+                ? "bg-red-500"
+                : "bg-slate-500"
+          } animate-pulse`}
         />
         <p className="text-sm">{time}</p>
       </div>
@@ -103,6 +98,7 @@ const CardSection: React.FC<CardSectionProps> = ({
             settingTaskT={handleTickClick}
             settingTaskX={handleXClick}
             attendedTask={attendedTask}
+            postalCodes={postalCodes}
           />
           <button
             className="absolute bottom-0 right-1 cursor-pointer"

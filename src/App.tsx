@@ -13,6 +13,7 @@ import {
 import { Plus, ListRestart } from "lucide-react";
 import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
 import { Reorder, useDragControls } from "framer-motion";
+import { log } from "console";
 
 function App() {
   const { setItem, getItem } = useLocalStorage("data");
@@ -22,6 +23,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [time, setTime] = useState("09:00");
   const [cards, setCards] = useState(getItem() || dummyData);
+  const [postalCodes, setPostalCodes] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [timeEntries, setTimeEntries] = useState(getLocalTime() || timeData);
   const totalCount = cards.length;
@@ -55,11 +57,11 @@ function App() {
     e.preventDefault();
 
     const timeExists = timeEntries.some(
-      (entry) => entry.time === time && editIndex === null
+      (entry) => entry.time === time && editIndex === null,
     );
     if (timeExists) {
       alert(
-        `An event is already scheduled at ${time}. Please choose a different time.`
+        `An event is already scheduled at ${time}. Please choose a different time.`,
       );
       return;
     }
@@ -70,6 +72,7 @@ function App() {
       task,
       location,
       attendedTask: null,
+      postalCodes,
     };
 
     if (editIndex !== null) {
@@ -117,6 +120,10 @@ function App() {
     alert("List Cleared!");
   };
 
+  useEffect(() => {
+    console.log(cards);
+  }, [cards]);
+
   return (
     <>
       <Header
@@ -126,13 +133,17 @@ function App() {
       />
       <div>
         <Dialog>
-          <DialogTrigger asChild>
-            <button className="m-1 p-1 border-2 rounded-full">
-              <Plus size={15} />
-            </button>
-          </DialogTrigger>
-          <div className="float-right" onClick={handleReset}>
-            <ListRestart className="m-1 p-1 border-2 rounded-full" />
+          <div className="flex w-full mt-8 justify-between">
+            <DialogTrigger asChild>
+              <button className="m-1 p-1 border-2 rounded-full bg-[#F7B195] text-slate-800">
+                <Plus size={15} />
+              </button>
+            </DialogTrigger>
+            <ListRestart
+              className="m-1 p-1 border-2 rounded-full bg-[#F7B195] text-slate-800"
+              onClick={handleReset}
+              size={26}
+            />
           </div>
           <DialogContent className="rounded-2xl">
             <DialogHeader>
@@ -178,6 +189,17 @@ function App() {
               </div>
 
               <div>
+                <label className="block text-sm font-medium">Postal Code</label>
+                <input
+                  type="text"
+                  value={postalCodes}
+                  onChange={(e) => setPostalCodes(e.target.value)}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md text-sm"
+                  required
+                />
+              </div>
+
+              <div>
                 <label className="block text-sm font-medium">Time</label>
                 <input
                   type="time"
@@ -212,6 +234,7 @@ function App() {
                 location={card.location}
                 time={timeFromData}
                 attendedTask={card.attendedTask}
+                postalCodes={card.postalCodes}
                 index={index + 1}
                 totalCount={totalCount}
                 onDelete={() => handleDelete(index)}

@@ -80,7 +80,7 @@ const Card: React.FC<CardProps> = ({
   }, [postalCodes]);
 
   return (
-    <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white neumorphism">
+    <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white neumorphism sm:w-96 sm:h-32 sm:justify-between sm:p-2">
       <div className="w-44 m-2">
         <p className="text-xs">
           case {index}/{totalCount}

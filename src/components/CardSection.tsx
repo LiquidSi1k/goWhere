@@ -63,7 +63,7 @@ const CardSection: React.FC<CardSectionProps> = ({
   };
 
   return (
-    <div className=" w-full h-28 flex justify-around items-center">
+    <div className=" w-full h-28 flex justify-around items-center sm:h-36">
       <div className="flex items-center gap-2">
         <div
           className={`w-3 h-3 rounded-full border-2 ${

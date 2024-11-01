@@ -6,13 +6,13 @@ import { Reorder, useMotionValue } from "framer-motion";
 import { useRaisedShadow } from "../hooks/useRaisedShadow";
 
 interface CardSectionProps {
-  time: string;
+  time?: string;
   card: {
     id: number;
     name: string;
     task: string;
     location: string;
-    time: string;
+    time?: string;
     postalCodes: string;
     attendedTask: boolean | null;
   };
@@ -23,7 +23,7 @@ interface CardSectionProps {
     name: string;
     task: string;
     location: string;
-    time: string;
+    time?: string;
   }) => void;
   updateAttendedTask: (attendedTask: boolean | null) => void;
   dragControls: DragControls;
@@ -38,9 +38,15 @@ const CardSection: React.FC<CardSectionProps> = ({
   updateAttendedTask,
   dragControls,
   time,
-  postalCodes,
 }) => {
-  const { id, name, task, location, attendedTask: initialAttendedTask } = card;
+  const {
+    id,
+    name,
+    task,
+    location,
+    attendedTask: initialAttendedTask,
+    postalCodes,
+  } = card;
   const [attendedTask, setAttendedTask] = useState<boolean | null>(
     initialAttendedTask,
   );

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import CardSection from "./components/CardSection";
 import Header from "./components/Header";
-import dummyData from "./constant/dummyData";
-import timeData from "./constant/dummyTime";
+// import dummyData from "./constant/dummyData";
+// import timeData from "./constant/dummyTime";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,6 @@ import {
 import { Plus, ListRestart } from "lucide-react";
 import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
 import { Reorder, useDragControls } from "framer-motion";
-import { log } from "console";
 
 function App() {
   const { setItem, getItem } = useLocalStorage("data");
@@ -22,10 +21,10 @@ function App() {
   const [task, setTask] = useState("");
   const [location, setLocation] = useState("");
   const [time, setTime] = useState("09:00");
-  const [cards, setCards] = useState(getItem() || dummyData);
+  const [cards, setCards] = useState(getItem() || []);
   const [postalCodes, setPostalCodes] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [timeEntries, setTimeEntries] = useState(getLocalTime() || timeData);
+  const [timeEntries, setTimeEntries] = useState(getLocalTime() || []);
   const totalCount = cards.length;
   const [greenCount, setGreenCount] = useState(0);
   const [redCount, setRedCount] = useState(0);
@@ -36,6 +35,7 @@ function App() {
     setTask("");
     setLocation("");
     setTime("09:00");
+    setPostalCodes("");
   };
 
   const handleDelete = (index: number) => {
@@ -67,7 +67,10 @@ function App() {
     }
 
     const newCard = {
-      id: editIndex !== null ? cards[editIndex].id : Date.now(),
+      id:
+        editIndex !== null && Array.isArray(cards)
+          ? cards[editIndex].id
+          : Date.now(),
       name,
       task,
       location,
@@ -119,10 +122,6 @@ function App() {
     setTimeEntries([]);
     alert("List Cleared!");
   };
-
-  useEffect(() => {
-    console.log(cards);
-  }, [cards]);
 
   return (
     <>
@@ -229,12 +228,7 @@ function App() {
               <CardSection
                 key={card.id}
                 card={card}
-                name={card.name}
-                task={card.task}
-                location={card.location}
                 time={timeFromData}
-                attendedTask={card.attendedTask}
-                postalCodes={card.postalCodes}
                 index={index + 1}
                 totalCount={totalCount}
                 onDelete={() => handleDelete(index)}

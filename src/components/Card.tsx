@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +31,7 @@ interface CardProps {
   settingTaskX: () => void;
   attendedTask: boolean | null;
   postalCodes: string;
+  time?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -74,10 +75,6 @@ const Card: React.FC<CardProps> = ({
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    console.log(postalCodes);
-  }, [postalCodes]);
 
   return (
     <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white neumorphism sm:w-96 sm:h-32 sm:justify-between sm:p-2">

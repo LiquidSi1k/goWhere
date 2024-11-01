@@ -5,6 +5,7 @@ import { GripHorizontal } from "lucide-react";
 import { Reorder, useMotionValue } from "framer-motion";
 import { useRaisedShadow } from "../hooks/useRaisedShadow";
 
+// Interface for CardSection props
 interface CardSectionProps {
   time?: string;
   card: {
@@ -47,6 +48,7 @@ const CardSection: React.FC<CardSectionProps> = ({
     attendedTask: initialAttendedTask,
     postalCodes,
   } = card;
+
   const [attendedTask, setAttendedTask] = useState<boolean | null>(
     initialAttendedTask,
   );
@@ -54,6 +56,7 @@ const CardSection: React.FC<CardSectionProps> = ({
   const y = useMotionValue(0);
   const boxShadow = useRaisedShadow(y);
 
+  // Keep local state in sync with prop changes
   useEffect(() => {
     setAttendedTask(initialAttendedTask);
   }, [initialAttendedTask]);
@@ -69,7 +72,7 @@ const CardSection: React.FC<CardSectionProps> = ({
   };
 
   return (
-    <div className=" w-full h-28 flex justify-around items-center sm:h-36">
+    <div className="w-full h-28 flex justify-around items-center sm:h-36">
       <div className="flex items-center gap-2">
         <div
           className={`w-3 h-3 rounded-full border-2 ${
@@ -80,14 +83,12 @@ const CardSection: React.FC<CardSectionProps> = ({
                 : "bg-slate-500"
           } animate-pulse`}
         />
-        <p className="text-sm">{time}</p>
+        <p className="font-semibold">{time}</p>
       </div>
 
       <Reorder.Item
         key={id}
         value={card}
-        // dragListener={false}
-        // dragControls={dragControls}
         style={{ boxShadow, y }}
         className="rounded-2xl"
       >

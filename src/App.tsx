@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import CardSection from "./components/CardSection";
 import Header from "./components/Header";
-// import dummyData from "./constant/dummyData";
-// import timeData from "./constant/dummyTime";
 import {
   Dialog,
   DialogContent,
@@ -14,17 +12,34 @@ import { Plus, ListRestart } from "lucide-react";
 import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
 import { Reorder, useDragControls } from "framer-motion";
 
+// Define types for card and time entry
+interface Card {
+  id: number;
+  name: string;
+  task: string;
+  location: string;
+  time: string;
+  postalCodes: string;
+  attendedTask: boolean | null;
+}
+
+interface TimeEntry {
+  time: string;
+}
+
 function App() {
-  const { setItem, getItem } = useLocalStorage("data");
+  const { getItem, setItem } = useLocalStorage<Card[]>("cards");
   const { setLocalTime, getLocalTime } = useTimeStorage("time");
   const [name, setName] = useState("");
   const [task, setTask] = useState("");
   const [location, setLocation] = useState("");
   const [time, setTime] = useState("09:00");
-  const [cards, setCards] = useState(getItem() || []);
+  const [cards, setCards] = useState<Card[]>(getItem() || []);
   const [postalCodes, setPostalCodes] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [timeEntries, setTimeEntries] = useState(getLocalTime() || []);
+  const [timeEntries, setTimeEntries] = useState<TimeEntry[]>(
+    getLocalTime() || [],
+  );
   const totalCount = cards.length;
   const [greenCount, setGreenCount] = useState(0);
   const [redCount, setRedCount] = useState(0);
@@ -46,14 +61,20 @@ function App() {
     if (editIndex === index) setEditIndex(null);
   };
 
-  const handleEdit = (index: number, updatedData: (typeof cards)[0]) => {
+  const handleEdit = (index: number, updatedData: Partial<Card>) => {
     const updatedCards = [...cards];
-    updatedCards[index] = updatedData;
+    const existingCard = updatedCards[index];
+
+    updatedCards[index] = {
+      ...existingCard,
+      ...updatedData,
+    };
+
     setCards(updatedCards);
     setEditIndex(null);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const timeExists = timeEntries.some(
@@ -66,7 +87,7 @@ function App() {
       return;
     }
 
-    const newCard = {
+    const newCard: Card = {
       id:
         editIndex !== null && Array.isArray(cards)
           ? cards[editIndex].id
@@ -74,6 +95,7 @@ function App() {
       name,
       task,
       location,
+      time,
       attendedTask: null,
       postalCodes,
     };
@@ -107,6 +129,7 @@ function App() {
   useEffect(() => {
     setItem(cards);
     setLocalTime(timeEntries);
+    console.log(cards);
   }, [cards, setItem, timeEntries, setLocalTime]);
 
   useEffect(() => {

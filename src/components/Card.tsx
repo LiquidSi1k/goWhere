@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({
   const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
   // const postalCode = Number(postalCodes);
 
-  const handleEditSave = (e) => {
+  const handleEditSave = (e: React.SyntheticEvent) => {
     e.preventDefault();
     wait().then(() => setOpen(false));
     onEdit({

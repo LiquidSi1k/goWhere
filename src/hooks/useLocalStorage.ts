@@ -1,3 +1,7 @@
+interface TimeEntry {
+  time: string;
+}
+
 export const useLocalStorage = <T>(key: string, defaultValue?: T) => {
   const setItem = (value: T) => {
     try {
@@ -32,8 +36,8 @@ export const useLocalStorage = <T>(key: string, defaultValue?: T) => {
   return { setItem, getItem, removeItem };
 };
 
-export const useTimeStorage = <T>(key: string, defaultValue?: T) => {
-  const setLocalTime = (value: T) => {
+export const useTimeStorage = (key: string) => {
+  const setLocalTime = (value: TimeEntry[]) => {
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
@@ -41,17 +45,13 @@ export const useTimeStorage = <T>(key: string, defaultValue?: T) => {
     }
   };
 
-  const getLocalTime = (): T | undefined => {
+  const getLocalTime = (): TimeEntry[] => {
     try {
       const item = window.localStorage.getItem(key);
-      if (item) {
-        return JSON.parse(item) as T;
-      } else {
-        return defaultValue;
-      }
+      return item ? JSON.parse(item) : []; // Return an empty array if no item found
     } catch (error) {
       console.error(`Error getting localStorage key "${key}":`, error);
-      return defaultValue;
+      return []; // Return an empty array on error
     }
   };
 

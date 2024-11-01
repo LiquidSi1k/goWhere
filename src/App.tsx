@@ -11,8 +11,8 @@ import {
 import { Plus, ListRestart } from "lucide-react";
 import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
 import { Reorder, useDragControls } from "framer-motion";
+import Footer from "./components/Footer";
 
-// Define types for card and time entry
 interface Card {
   id: number;
   name: string;
@@ -37,9 +37,7 @@ function App() {
   const [cards, setCards] = useState<Card[]>(getItem() || []);
   const [postalCodes, setPostalCodes] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [timeEntries, setTimeEntries] = useState<TimeEntry[]>(
-    getLocalTime() || [],
-  );
+  const [timeEntries, setTimeEntries] = useState<TimeEntry[]>(getLocalTime());
   const totalCount = cards.length;
   const [greenCount, setGreenCount] = useState(0);
   const [redCount, setRedCount] = useState(0);
@@ -129,7 +127,6 @@ function App() {
   useEffect(() => {
     setItem(cards);
     setLocalTime(timeEntries);
-    console.log(cards);
   }, [cards, setItem, timeEntries, setLocalTime]);
 
   useEffect(() => {
@@ -147,13 +144,13 @@ function App() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header
         totalCount={totalCount}
         greenCount={greenCount}
         redCount={redCount}
       />
-      <div>
+      <main className="flex-grow">
         <Dialog>
           <div className="flex w-full mt-8 justify-between">
             <DialogTrigger asChild>
@@ -264,8 +261,9 @@ function App() {
             );
           })}
         </Reorder.Group>
-      </div>
-    </>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

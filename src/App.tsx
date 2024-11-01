@@ -150,18 +150,18 @@ function App() {
         greenCount={greenCount}
         redCount={redCount}
       />
-      <main className="flex-grow">
+      <main className="flex-grow mt-8">
         <Dialog>
-          <div className="flex w-full mt-8 justify-between">
+          <div className="flex w-full  justify-between">
             <DialogTrigger asChild>
               <button className="m-1 p-1 border-2 rounded-full bg-[#F7B195] text-slate-800">
-                <Plus size={15} />
+                <Plus size={20} />
               </button>
             </DialogTrigger>
             <ListRestart
               className="m-1 p-1 border-2 rounded-full bg-[#F7B195] text-slate-800"
               onClick={handleReset}
-              size={26}
+              size={30}
             />
           </div>
           <DialogContent className="rounded-2xl">

@@ -79,25 +79,25 @@ const Header: React.FC<HeaderProps> = ({
             className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700"
             onClick={amkGoogleMap}
           >
-            AMK
+            <p className="text-sm font-semibold">AMK</p>
           </button>
           <button
             className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700"
             onClick={bedokGoogleMap}
           >
-            Bedok
+            <p className="text-sm font-semibold">Bedok</p>
           </button>
           <button
-            className="border-2 p-1 rounded-full bg-[#F7B195] text-gray-700"
+            className="border-2 p-1 px-2 rounded-full bg-[#F7B195] text-gray-700"
             onClick={mrtGoogleMap}
           >
-            <TramFront size={15} />
+            <TramFront size={16} />
           </button>
           <button
-            className="border-2 p-1 rounded-full bg-[#F7B195] text-gray-700"
+            className="border-2 py-1 px-2 rounded-full bg-[#F7B195] text-gray-700"
             onClick={foodGoogleMap}
           >
-            <Utensils size={15} />
+            <Utensils size={16} />
           </button>
         </div>
       </div>

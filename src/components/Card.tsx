@@ -52,7 +52,6 @@ const Card: React.FC<CardProps> = ({
   const [editLocation, setEditLocation] = useState(location);
   const [open, setOpen] = useState(false);
   const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
-  // const postalCode = Number(postalCodes);
 
   const handleEditSave = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -65,14 +64,41 @@ const Card: React.FC<CardProps> = ({
     });
   };
 
-  const handleGrabLink = async () => {
+  const openGrabApp = async () => {
+    const grabUrl = "grab://"; // URI for the Grab app
+    const playStoreUrl =
+      "https://play.google.com/store/apps/details?id=com.grabtaxi.driver"; // For Android
+    const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS
+
     try {
       await navigator.clipboard.writeText(postalCodes);
       alert("Destination copied! Opening Grab...");
 
-      window.location.href = "grab://";
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isAndroid = /Android/.test(navigator.userAgent);
+
+      if (isIOS) {
+        window.location.href = grabUrl; // This may work for iOS
+        setTimeout(() => {
+          // Fallback to App Store after a short delay
+          window.location.href = appStoreUrl;
+        }, 2000); // Adjust delay as needed
+      } else if (isAndroid) {
+        // Attempt to open the Grab app
+        const opened = window.open(grabUrl, "_system");
+        if (!opened) {
+          // If the Grab app does not open, fallback to the Play Store
+          window.open(playStoreUrl, "_blank");
+        }
+      } else {
+        // Fallback for desktop users
+        alert(
+          "Grab app is not available on this device. Please use your mobile device or click here to visit the Grab website.",
+        );
+        window.open(playStoreUrl, "_blank"); // Provide a link to the Play Store or a website
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error opening Grab app:", error);
     }
   };
 
@@ -174,7 +200,7 @@ const Card: React.FC<CardProps> = ({
           </button>
           <button
             className="border p-1 rounded-full bg-[#28a745] text-white ml-1"
-            onClick={handleGrabLink}
+            onClick={openGrabApp}
           >
             <CarTaxiFront size={15} />
           </button>

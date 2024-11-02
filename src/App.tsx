@@ -12,6 +12,8 @@ import { Plus, ListRestart } from "lucide-react";
 import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
 import { Reorder } from "framer-motion";
 import Footer from "./components/Footer";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "./hooks/use-toast";
 
 interface Card {
   id: number;
@@ -41,6 +43,7 @@ function App() {
   const totalCount = cards.length;
   const [greenCount, setGreenCount] = useState(0);
   const [redCount, setRedCount] = useState(0);
+  const { toast } = useToast();
 
   const handleClear = () => {
     setName("");
@@ -139,7 +142,9 @@ function App() {
     setItem([]);
     setCards([]);
     setTimeEntries([]);
-    alert("List Cleared!");
+    toast({
+      description: "List Cleared!",
+    });
   };
 
   return (
@@ -260,6 +265,7 @@ function App() {
           })}
         </Reorder.Group>
       </main>
+      <Toaster />
       <Footer />
     </div>
   );

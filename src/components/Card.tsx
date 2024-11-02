@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface CardProps {
   name: string;
@@ -52,6 +53,7 @@ const Card: React.FC<CardProps> = ({
   const [editLocation, setEditLocation] = useState(location);
   const [open, setOpen] = useState(false);
   const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
+  const { toast } = useToast();
 
   const handleEditSave = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -104,7 +106,7 @@ const Card: React.FC<CardProps> = ({
   // };
 
   const openGrabApp = () => {
-    const grabUrl = "grab://open"; // URI for the Grab app
+    const grabUrl = "grab://"; // URI for the Grab app
     const playStoreUrl =
       "https://play.google.com/store/apps/details?id=com.grabtaxi.driver"; // For Android
     // const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS
@@ -112,7 +114,10 @@ const Card: React.FC<CardProps> = ({
 
     try {
       navigator.clipboard.writeText(postalCodes);
-      alert("Destination copied! Opening Grab...");
+      // alert("Destination copied! Opening Grab...");
+      toast({
+        description: "Destination copied! Opening Grab...",
+      });
 
       // Attempt to open the Grab app
       const opened = window.open(grabUrl, "_self");

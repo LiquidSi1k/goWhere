@@ -65,10 +65,11 @@ const Card: React.FC<CardProps> = ({
   };
 
   const openGrabApp = async () => {
-    const grabUrl = "grab://"; // URI for the Grab app
+    const grabUrl = "grab://open"; // URI for the Grab app
     const playStoreUrl =
       "https://play.google.com/store/apps/details?id=com.grabtaxi.driver"; // For Android
     const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS
+    const grabWeb = "https://www.grab.com/sg/";
 
     try {
       await navigator.clipboard.writeText(postalCodes);
@@ -95,7 +96,7 @@ const Card: React.FC<CardProps> = ({
         alert(
           "Grab app is not available on this device. Please use your mobile device or click here to visit the Grab website.",
         );
-        window.open(playStoreUrl, "_blank"); // Provide a link to the Play Store or a website
+        window.open(grabWeb, "_blank"); // Provide a link to the Play Store or a website
       }
     } catch (error) {
       console.error("Error opening Grab app:", error);
@@ -105,14 +106,16 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className="w-72 h-24 rounded-2xl flex justify-around items-center bg-white neumorphism sm:w-96 sm:h-32 sm:justify-between sm:p-2">
       <div className="w-44 m-2">
-        <p className="text-xs">
+        <p className="text-xs sm:text-sm">
           case {index}/{totalCount}
         </p>
         <div className="w-full flex items-center gap-2 justify-between">
-          <p className="text-nowrap text-lg font-bold truncate">{name}</p>
-          <p className="text-right text-xs truncate">{task}</p>
+          <p className="text-nowrap text-lg sm:text-2xl font-bold truncate">
+            {name}
+          </p>
+          <p className="text-right text-xs sm:text-sm truncate">{task}</p>
         </div>
-        <p className="text-sm">{location}</p>
+        <p className="text-sm sm:text-base">{location}</p>
       </div>
 
       <div className="h-full">
@@ -185,24 +188,24 @@ const Card: React.FC<CardProps> = ({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="pt-3">
+        <div className="pt-2 sm:pt-3">
           <button
             className="border p-1 rounded-full bg-[#009688] text-white"
             onClick={settingTaskT}
           >
-            <Check size={15} />
+            <Check className="size-4 sm:size-5" />
           </button>
           <button
             className="border p-1 rounded-full bg-[#ff6b6b] text-white ml-1"
             onClick={settingTaskX}
           >
-            <X size={15} />
+            <X className="size-4 sm:size-5" />
           </button>
           <button
             className="border p-1 rounded-full bg-[#28a745] text-white ml-1"
             onClick={openGrabApp}
           >
-            <CarTaxiFront size={15} />
+            <CarTaxiFront className="size-4 sm:size-5" />
           </button>
         </div>
       </div>

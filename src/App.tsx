@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, ListRestart } from "lucide-react";
 import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
-import { Reorder, useDragControls } from "framer-motion";
+import { Reorder } from "framer-motion";
 import Footer from "./components/Footer";
 
 interface Card {
@@ -41,7 +41,6 @@ function App() {
   const totalCount = cards.length;
   const [greenCount, setGreenCount] = useState(0);
   const [redCount, setRedCount] = useState(0);
-  const dragControls = useDragControls();
 
   const handleClear = () => {
     setName("");
@@ -256,7 +255,6 @@ function App() {
                 updateAttendedTask={(newStatus) =>
                   updateAttendedTask(index, newStatus)
                 }
-                dragControls={dragControls}
               />
             );
           })}

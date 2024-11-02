@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
-import { GripHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { Reorder, useMotionValue, useDragControls } from "framer-motion";
 import { useRaisedShadow } from "../hooks/useRaisedShadow";
 
@@ -115,7 +115,7 @@ const CardSection: React.FC<CardSectionProps> = ({
             onPointerDown={startDrag}
             aria-label="Drag handle"
           >
-            <GripHorizontal />
+            <ArrowUpDown className="border mb-[2px] sm:m-1 rounded-full p-1 size-6 bg-[#F7B195] text-white" />
           </button>
         </div>
       </Reorder.Item>

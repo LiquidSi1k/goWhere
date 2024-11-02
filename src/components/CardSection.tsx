@@ -84,7 +84,7 @@ const CardSection: React.FC<CardSectionProps> = ({
                 : "bg-slate-500"
           } animate-pulse`}
         />
-        <p className="font-semibold">{time}</p>
+        <p className="font-semibold text-sm sm:text-base">{time}</p>
       </div>
 
       <Reorder.Item

@@ -106,7 +106,7 @@ const Card: React.FC<CardProps> = ({
   // };
 
   const openGrabApp = () => {
-    const grabUrl = "grab://"; // URI for the Grab app
+    const grabUrl = "grab://open"; // URI for the Grab app
     const playStoreUrl =
       "https://play.google.com/store/apps/details?id=com.grabtaxi.driver"; // For Android
     // const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS

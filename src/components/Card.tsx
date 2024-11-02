@@ -64,42 +64,70 @@ const Card: React.FC<CardProps> = ({
     });
   };
 
-  const openGrabApp = async () => {
+  // const openGrabApp = async () => {
+  //   const grabUrl = "grab://open"; // URI for the Grab app
+  //   const playStoreUrl =
+  //     "https://play.google.com/store/apps/details?id=com.grabtaxi.driver"; // For Android
+  //   const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS
+  //   const grabWeb = "https://www.grab.com/sg/";
+
+  //   try {
+  //     await navigator.clipboard.writeText(postalCodes);
+  //     alert("Destination copied! Opening Grab...");
+
+  //     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  //     const isAndroid = /Android/.test(navigator.userAgent);
+
+  //     if (isIOS) {
+  //       window.location.href = grabUrl; // This may work for iOS
+  //       setTimeout(() => {
+  //         // Fallback to App Store after a short delay
+  //         window.location.href = appStoreUrl;
+  //       }, 2000); // Adjust delay as needed
+  //     } else if (isAndroid) {
+  //       // Attempt to open the Grab app
+  //       const opened = window.open(grabUrl, "_system");
+  //       if (!opened) {
+  //         // If the Grab app does not open, fallback to the Play Store
+  //         window.open(playStoreUrl, "_blank");
+  //       }
+  //     } else {
+  //       // Fallback for desktop users
+  //       alert(
+  //         "Grab app is not available on this device. Please use your mobile device or click here to visit the Grab website.",
+  //       );
+  //       window.open(grabWeb, "_blank"); // Provide a link to the Play Store or a website
+  //     }
+  //   } catch (error) {
+  //     console.error("Error opening Grab app:", error);
+  //   }
+  // };
+
+  const openGrabApp = () => {
     const grabUrl = "grab://open"; // URI for the Grab app
     const playStoreUrl =
       "https://play.google.com/store/apps/details?id=com.grabtaxi.driver"; // For Android
-    const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS
+    // const appStoreUrl = "https://apps.apple.com/app/grab/id647268330"; // For iOS
     const grabWeb = "https://www.grab.com/sg/";
 
     try {
-      await navigator.clipboard.writeText(postalCodes);
+      navigator.clipboard.writeText(postalCodes);
       alert("Destination copied! Opening Grab...");
 
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isAndroid = /Android/.test(navigator.userAgent);
+      // Attempt to open the Grab app
+      const opened = window.open(grabUrl, "_self");
 
-      if (isIOS) {
-        window.location.href = grabUrl; // This may work for iOS
-        setTimeout(() => {
-          // Fallback to App Store after a short delay
-          window.location.href = appStoreUrl;
-        }, 2000); // Adjust delay as needed
-      } else if (isAndroid) {
-        // Attempt to open the Grab app
-        const opened = window.open(grabUrl, "_system");
-        if (!opened) {
-          // If the Grab app does not open, fallback to the Play Store
-          window.open(playStoreUrl, "_blank");
-        }
-      } else {
-        // Fallback for desktop users
-        alert(
-          "Grab app is not available on this device. Please use your mobile device or click here to visit the Grab website.",
-        );
-        window.open(grabWeb, "_blank"); // Provide a link to the Play Store or a website
+      if (!opened) {
+        // If the Grab app does not open, fallback to the Play Store
+        window.location.href = playStoreUrl;
       }
     } catch (error) {
       console.error("Error opening Grab app:", error);
+      // Fallback for desktop users
+      alert(
+        "Grab app is not available on this device. Please visit the Grab website.",
+      );
+      window.open(grabWeb, "_blank"); // Provide a link to the Grab website
     }
   };
 

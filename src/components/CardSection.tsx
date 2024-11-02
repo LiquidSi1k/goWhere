@@ -67,6 +67,11 @@ const CardSection: React.FC<CardSectionProps> = ({
     updateAttendedTask(false);
   };
 
+  const startDrag = (event: React.PointerEvent) => {
+    event.preventDefault();
+    dragControls.start(event);
+  };
+
   return (
     <div className="w-full h-28 flex justify-around items-center sm:h-36">
       <div className="flex items-center gap-2">
@@ -106,8 +111,8 @@ const CardSection: React.FC<CardSectionProps> = ({
             postalCodes={postalCodes}
           />
           <button
-            className="absolute bottom-0 right-1 cursor-pointer"
-            onPointerDown={(e) => dragControls.start(e)}
+            className="absolute bottom-0 right-1 cursor-pointer drag-handle"
+            onPointerDown={startDrag}
             aria-label="Drag handle"
           >
             <GripHorizontal />

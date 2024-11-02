@@ -125,3 +125,7 @@ body {
         5px 5px 10px #b8b8b8,
         -5px -5px 10px #ffffff;
 }
+
+.drag-handle {
+    touch-action: none;
+}

@@ -13,6 +13,7 @@ import { useLocalStorage, useTimeStorage } from "./hooks/useLocalStorage";
 import { Reorder } from "framer-motion";
 import Footer from "./components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "./hooks/use-toast";
 
 interface Card {
@@ -81,9 +82,12 @@ function App() {
       (entry) => entry.time === time && editIndex === null,
     );
     if (timeExists) {
-      alert(
-        `An event is already scheduled at ${time}. Please choose a different time.`,
-      );
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Same timing.",
+        description: `An event is already scheduled at ${time} hours. Please choose a different time.`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
       return;
     }
 

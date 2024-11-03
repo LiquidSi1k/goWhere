@@ -168,7 +168,18 @@ function App() {
             </DialogTrigger>
             <ListRestart
               className="m-1 p-1 border-2 rounded-full bg-[#F7B195] text-slate-800"
-              onClick={handleReset}
+              onClick={() => {
+                toast({
+                  variant: "destructive",
+                  title: "Are you sure?",
+                  description: "This action will clear your list.",
+                  action: (
+                    <ToastAction altText="Confirm reset" onClick={handleReset}>
+                      Confirm
+                    </ToastAction>
+                  ),
+                });
+              }}
               size={30}
             />
           </div>

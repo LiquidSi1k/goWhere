@@ -138,12 +138,27 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div className="w-72 h-24 rounded-2xl flex justify-around items-center text-[#355C7D] neumorphism sm:w-96 sm:h-32 sm:justify-between sm:p-2">
-      <div className="w-44 m-2">
+      <div className="w-44 m-2 flex-grow">
         <p className="text-xs sm:text-sm">
           case {index}/{totalCount}
         </p>
         <div className="w-full flex items-center gap-2 justify-between">
-          <p className="text-nowrap text-lg sm:text-2xl font-bold truncate">
+          <p
+            className="text-nowrap text-lg sm:text-2xl font-bold truncate"
+            onClick={() => {
+              toast({
+                title: "Details",
+                description: (
+                  <>
+                    <p>Name: {name}</p>
+                    <p>Task: {task}</p>
+                    <p>Location: {location}</p>
+                    <p>Postal Code: {postalCodes}</p>
+                  </>
+                ),
+              });
+            }}
+          >
             {name}
           </p>
           <p className="text-right text-xs sm:text-sm truncate">{task}</p>

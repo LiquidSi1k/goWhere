@@ -163,7 +163,7 @@ const Card: React.FC<CardProps> = ({
           </p>
           <p className="text-right text-xs sm:text-sm truncate">{task}</p>
         </div>
-        <p className="text-sm sm:text-base">{location}</p>
+        <p className="text-sm sm:text-base truncate">{location}</p>
       </div>
 
       <div className="h-full">

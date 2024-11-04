@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Check, X, CarTaxiFront, Ellipsis } from "lucide-react";
+import { Check, X, CarTaxiFront, Ellipsis, MapPinned } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -136,6 +136,10 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
+  const locationMap = () => {
+    window.location.href = `https://www.google.com/maps/search/?api=1&query=${postalCodes}`;
+  };
+
   return (
     <div className="w-72 h-24 rounded-2xl flex justify-around items-center text-[#355C7D] neumorphism sm:w-96 sm:h-32 sm:justify-between sm:p-2">
       <div className="w-44 m-2 flex-grow">
@@ -154,6 +158,11 @@ const Card: React.FC<CardProps> = ({
                     <p>Task: {task}</p>
                     <p>Location: {location}</p>
                     <p>Postal Code: {postalCodes}</p>
+                    <MapPinned
+                      className="border-2 bg-[#F7B195] text-white rounded-full p-1"
+                      onClick={locationMap}
+                      size={26}
+                    />
                   </>
                 ),
               });

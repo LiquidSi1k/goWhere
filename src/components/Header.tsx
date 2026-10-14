@@ -76,14 +76,14 @@ const Header: React.FC<HeaderProps> = ({
         </div>
         <div className="flex justify-end gap-1 my-1">
           <button
-            className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700"
+            className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={amkGoogleMap}
             disabled
           >
             <p className="text-sm font-semibold">AMK</p>
           </button>
           <button
-            className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700"
+            className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={bedokGoogleMap}
             disabled
           >

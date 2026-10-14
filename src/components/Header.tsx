@@ -78,12 +78,14 @@ const Header: React.FC<HeaderProps> = ({
           <button
             className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700"
             onClick={amkGoogleMap}
+            disabled
           >
             <p className="text-sm font-semibold">AMK</p>
           </button>
           <button
             className="border-2 p-1 rounded-full text-xs bg-[#F7B195] text-gray-700"
             onClick={bedokGoogleMap}
+            disabled
           >
             <p className="text-sm font-semibold">Bedok</p>
           </button>
